@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📦 Cultist Simulator 图片资源 (动态manifest)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background: #1e1e2f;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: #2a2a3c;
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid #3e3e5a;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: #c9b6ff;
+        }
+        header p {
+            margin-top: 0.3rem;
+            color: #a0a0b0;
+            font-size: 0.95rem;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 260px;
+            background: #242438;
+            border-right: 1px solid #3a3a50;
+            padding: 1.5rem 0;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+        .sidebar h3 {
+            padding: 0 1.2rem 0.8rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #7f7fa0;
+            border-bottom: 1px solid #35354a;
+            margin-bottom: 1rem;
+        }
+        .category-list {
+            list-style: none;
+        }
+        .category-item {
+            padding: 0.6rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-size: 1rem;
+            border-left: 3px solid transparent;
+            color: #b0b0c0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .category-item:hover {
+            background: #2e2e44;
+            color: #d4d4f0;
+            border-left-color: #7b68ee;
+        }
+        .category-item.active {
+            background: #2a2a40;
+            color: #c9b6ff;
+            border-left-color: #b89eff;
+            font-weight: 500;
+        }
+        .category-count {
+            font-size: 0.75rem;
+            background: #3a3a58;
+            padding: 2px 6px;
+            border-radius: 20px;
+            color: #ccc;
+        }
+        .main {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            background: #1a1a28;
+        }
+        .category-title {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: 300;
+            color: #b4a6e0;
+            border-bottom: 1px dashed #4a4a6a;
+            padding-bottom: 0.3rem;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+        .image-card {
+            background: #242438;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #36364c;
+        }
+        .image-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.5);
+            border-color: #6b5b9a;
+        }
+        .image-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
+            background: #0e0e16;
+            display: block;
+            padding: 8px;
+            border-bottom: 1px solid #33334a;
+        }
+        .image-card .filename {
+            padding: 10px 8px;
+            font-size: 0.8rem;
+            text-align: center;
+            background: #1e1e2e;
+            color: #bdbdd0;
+            word-break: break-word;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .loading, .error-message, .empty-message {
+            text-align: center;
+            padding: 3rem;
+            color: #aaa;
+            font-size: 1.2rem;
+        }
+        .footer-note {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #242438;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #9a9ab0;
+            border: 1px solid #3b3b58;
+        }
+        .footer-note code {
+            background: #13131f;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            color: #cba6ff;
+        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #1e1e30; }
+        ::-webkit-scrollbar-thumb { background: #4a4a70; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6a6a9a; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌙 Cultist Simulator 原始图片浏览 (动态 manifest)</h1>
+        <p>通过 jsDelivr 加载 <code>manifest.json</code> 获取真实文件列表 · 分支 <strong>vvanila_js</strong></p>
+    </header>
+    <div class="container">
+        <!-- 左侧分类导航 (动态生成) -->
+        <div class="sidebar">
+            <h3>📁 分类</h3>
+            <ul class="category-list" id="category-list">
+                <li class="loading" style="background: none; border: none;">加载分类中...</li>
+            </ul>
+            <div style="padding: 1rem 1.2rem; margin-top: 1rem; border-top: 1px solid #35354a;">
+                <p style="font-size: 0.8rem; color: #78789b;">📌 基于 manifest.json 动态生成</p>
+                <p style="font-size: 0.8rem; color: #78789b; margin-top: 0.5rem;">🔍 子目录自动合并为分类名</p>
+            </div>
+        </div>
+        <!-- 主内容区 -->
+        <div class="main" id="main-content">
+            <div class="category-title" id="current-category">--</div>
+            <div class="image-grid" id="image-grid">
+                <div class="loading">⏳ 请先选择一个分类</div>
+            </div>
+            <div class="footer-note">
+                <strong>💡 数据来源</strong><br>
+                • Manifest 地址：<code id="manifest-url"></code><br>
+                • 图片基础路径：<code>https://cdn.jsdelivr.net/gh/qqf-dev/cultist-node-editor@vvanila_js/core/origin_resources/images/</code><br>
+                • 若分类名包含子目录（如 <code>elements/anim</code>），URL 会自动拼接正确路径。
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ---------- 配置 ----------
+            const CDN_BASE = 'https://cdn.jsdelivr.net/gh/qqf-dev/cultist-node-editor@vvanila_js/';
+
+            const MANIFEST_URL = CDN_BASE + 'core/images_manifest.json';
+            // 图片基础路径
+            const IMAGES_BASE = CDN_BASE + 'core/origin_resources/images/';
+
+            // 显示 manifest 地址
+            document.getElementById('manifest-url').textContent = MANIFEST_URL;
+
+            // DOM 元素
+            const categoryListEl = document.getElementById('category-list');
+            const currentCategoryEl = document.getElementById('current-category');
+            const imageGridEl = document.getElementById('image-grid');
+
+            // 存储 manifest 数据
+            let manifest = null;
+            // 当前选中的分类
+            let activeCategory = null;
+
+            // 初始化：加载 manifest
+            async function loadManifest() {
+                try {
+                    const res = await fetch(MANIFEST_URL);
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    manifest = await res.json();
+
+                    // 对 manifest 的键进行排序，并过滤掉可能存在的空键（根目录无图片的情况）
+                    const categories = Object.keys(manifest).filter(key => manifest[key].length > 0).sort();
+
+                    if (categories.length === 0) {
+                        categoryListEl.innerHTML = '<li class="error-message">⚠️ manifest 中无任何图片分类</li>';
+                        return;
+                    }
+
+                    // 渲染侧边栏
+                    renderSidebar(categories);
+
+                    // 默认选中第一个分类
+                    switchCategory(categories[0]);
+
+                } catch (err) {
+                    console.error('加载 manifest 失败:', err);
+                    categoryListEl.innerHTML = `<li class="error-message">❌ 加载 manifest 失败: ${err.message}</li>`;
+                    imageGridEl.innerHTML = `<div class="error-message">无法加载 manifest.json，请检查网络或路径。</div>`;
+                }
+            }
+
+            // 渲染侧边栏
+            function renderSidebar(categories) {
+                let html = '';
+                categories.forEach(cat => {
+                    const count = manifest[cat].length;
+                    html += `<li class="category-item" data-category="${cat}">
+                        <span>${cat || '根目录'}</span>
+                        <span class="category-count">${count}</span>
+                    </li>`;
+                });
+                categoryListEl.innerHTML = html;
+
+                // 添加点击事件
+                document.querySelectorAll('.category-item').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const cat = el.dataset.category;
+                        switchCategory(cat);
+                    });
+                });
+            }
+
+            // 切换分类
+            function switchCategory(category) {
+                if (!manifest || category === activeCategory) return;
+                activeCategory = category;
+
+                // 更新激活样式
+                document.querySelectorAll('.category-item').forEach(el => {
+                    if (el.dataset.category === category) {
+                        el.classList.add('active');
+                    } else {
+                        el.classList.remove('active');
+                    }
+                });
+
+                // 更新标题
+                currentCategoryEl.textContent = category || '根目录';
+
+                // 加载该分类的图片
+                loadImagesForCategory(category);
+            }
+
+            // 加载指定分类的图片
+            function loadImagesForCategory(category) {
+                const files = manifest[category] || [];
+                if (files.length === 0) {
+                    imageGridEl.innerHTML = '<div class="empty-message">📂 该分类下没有图片</div>';
+                    return;
+                }
+
+                // 显示加载中
+                imageGridEl.innerHTML = '<div class="loading">🖼️ 加载图片中...</div>';
+
+                // 使用 setTimeout 让 UI 先更新，避免阻塞
+                setTimeout(() => {
+                    let html = '';
+                    // 对文件名排序，使展示有序
+                    const sortedFiles = [...files].sort();
+                    sortedFiles.forEach(filename => {
+                        // 对文件名进行 URL 编码
+                        const encodedFilename = encodeURIComponent(filename);
+                        // 拼接图片 URL：注意 category 可能包含子目录（如 "elements/anim"）
+                        const imgUrl = `${IMAGES_BASE}${category}/${encodedFilename}`;
+                        html += `
+                            <div class="image-card">
+                                <img src="${imgUrl}" alt="${filename}" loading="lazy" onerror="this.style.opacity='0.3'; this.parentElement.style.opacity='0.6';">
+                                <div class="filename" title="${filename}">${filename}</div>
+                            </div>
+                        `;
+                    });
+                    imageGridEl.innerHTML = html;
+                }, 20);
+            }
+
+            // 启动
+            loadManifest();
+        })();
+    </script>
+</body>
+</html>
