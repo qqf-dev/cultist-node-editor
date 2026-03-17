@@ -1,254 +1,398 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📦 Cultist Simulator 图片资源 (动态manifest)</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cultist Simulator 图片资源</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-        }
-        body {
-            background: #1e1e2f;
-            color: #e0e0e0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        header {
-            background: #2a2a3c;
-            padding: 1.5rem 2rem;
-            border-bottom: 2px solid #3e3e5a;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        header h1 {
-            font-size: 1.8rem;
-            font-weight: 400;
-            letter-spacing: 1px;
-            color: #c9b6ff;
-        }
-        header p {
-            margin-top: 0.3rem;
-            color: #a0a0b0;
-            font-size: 0.95rem;
-        }
-        .container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-        .sidebar {
-            width: 260px;
-            background: #242438;
-            border-right: 1px solid #3a3a50;
-            padding: 1.5rem 0;
-            overflow-y: auto;
-            flex-shrink: 0;
-        }
-        .sidebar h3 {
-            padding: 0 1.2rem 0.8rem;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #7f7fa0;
-            border-bottom: 1px solid #35354a;
-            margin-bottom: 1rem;
-        }
-        .category-list {
-            list-style: none;
-        }
-        .category-item {
-            padding: 0.6rem 1.5rem;
-            cursor: pointer;
-            transition: all 0.15s;
-            font-size: 1rem;
-            border-left: 3px solid transparent;
-            color: #b0b0c0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .category-item:hover {
-            background: #2e2e44;
-            color: #d4d4f0;
-            border-left-color: #7b68ee;
-        }
-        .category-item.active {
-            background: #2a2a40;
-            color: #c9b6ff;
-            border-left-color: #b89eff;
-            font-weight: 500;
-        }
-        .category-count {
-            font-size: 0.75rem;
-            background: #3a3a58;
-            padding: 2px 6px;
-            border-radius: 20px;
-            color: #ccc;
-        }
-        .main {
-            flex: 1;
-            padding: 2rem;
-            overflow-y: auto;
-            background: #1a1a28;
-        }
-        .category-title {
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-            font-weight: 300;
-            color: #b4a6e0;
-            border-bottom: 1px dashed #4a4a6a;
-            padding-bottom: 0.3rem;
-        }
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1.5rem;
-        }
-        .image-card {
-            background: #242438;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #36364c;
-        }
-        .image-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.5);
-            border-color: #6b5b9a;
-        }
-        .image-card img {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: contain;
-            background: #0e0e16;
-            display: block;
-            padding: 8px;
-            border-bottom: 1px solid #33334a;
-        }
-        .image-card .filename {
-            padding: 10px 8px;
-            font-size: 0.8rem;
-            text-align: center;
-            background: #1e1e2e;
-            color: #bdbdd0;
-            word-break: break-word;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .loading, .error-message, .empty-message {
-            text-align: center;
-            padding: 3rem;
-            color: #aaa;
-            font-size: 1.2rem;
-        }
-        .footer-note {
-            margin-top: 2rem;
-            padding: 1rem;
-            background: #242438;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: #9a9ab0;
-            border: 1px solid #3b3b58;
-        }
-        .footer-note code {
-            background: #13131f;
-            padding: 0.2rem 0.5rem;
-            border-radius: 6px;
-            color: #cba6ff;
-        }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #1e1e30; }
-        ::-webkit-scrollbar-thumb { background: #4a4a70; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #6a6a9a; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+      body {
+        background: #1e1e2f;
+        color: #e0e0e0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        background: #2a2a3c;
+        padding: 1.5rem 2rem;
+        border-bottom: 2px solid #3e3e5a;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+      header h1 {
+        font-size: 1.8rem;
+        font-weight: 400;
+        letter-spacing: 1px;
+        color: #c9b6ff;
+      }
+      header p {
+        margin-top: 0.3rem;
+        color: #a0a0b0;
+        font-size: 0.95rem;
+      }
+      .container {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+      }
+      .sidebar {
+        width: 260px;
+        background: #242438;
+        border-right: 1px solid #3a3a50;
+        padding: 1.5rem 0;
+        overflow-y: auto;
+        flex-shrink: 0;
+      }
+      .sidebar h3 {
+        padding: 0 1.2rem 0.8rem;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #7f7fa0;
+        border-bottom: 1px solid #35354a;
+        margin-bottom: 1rem;
+      }
+      .category-list {
+        list-style: none;
+      }
+      .category-item {
+        padding: 0.6rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.15s;
+        font-size: 1rem;
+        border-left: 3px solid transparent;
+        color: #b0b0c0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .category-item:hover {
+        background: #2e2e44;
+        color: #d4d4f0;
+        border-left-color: #7b68ee;
+      }
+      .category-item.active {
+        background: #2a2a40;
+        color: #c9b6ff;
+        border-left-color: #b89eff;
+        font-weight: 500;
+      }
+      .category-count {
+        font-size: 0.75rem;
+        background: #3a3a58;
+        padding: 2px 6px;
+        border-radius: 20px;
+        color: #ccc;
+      }
+      .main {
+        flex: 1;
+        padding: 2rem;
+        overflow-y: auto;
+        background: #1a1a28;
+      }
+      /* 全局搜索条 */
+      .global-search {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        background: #242438;
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+        border: 1px solid #3b3b58;
+      }
+      .global-search input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: #e0e0e0;
+        font-size: 1rem;
+        outline: none;
+      }
+      .global-search input::placeholder {
+        color: #7a7a9a;
+      }
+      .global-search button {
+        background: #3a3a5a;
+        border: none;
+        color: #ccc;
+        padding: 4px 12px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: 0.2s;
+      }
+      .global-search button:hover {
+        background: #5a5a8a;
+        color: white;
+      }
+      .global-stats {
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        color: #8a8ab0;
+      }
+      /* 本地搜索区域 (分类内) */
+      .local-search-section {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        background: #242438;
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+        border: 1px solid #3b3b58;
+      }
+      .local-search-section input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: #e0e0e0;
+        font-size: 1rem;
+        outline: none;
+      }
+      .local-search-section input::placeholder {
+        color: #7a7a9a;
+      }
+      .local-search-section button {
+        background: #3a3a5a;
+        border: none;
+        color: #ccc;
+        padding: 4px 12px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: 0.2s;
+      }
+      .local-search-section button:hover {
+        background: #5a5a8a;
+        color: white;
+      }
+      .result-stats {
+        margin-top: -0.5rem;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        color: #8a8ab0;
+      }
+      /* 图片网格 */
+      .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1.5rem;
+      }
+      .image-card {
+        background: #242438;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #36364c;
+        cursor: pointer;
+      }
+      .image-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+        border-color: #6b5b9a;
+      }
+      .image-card img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+        background: #0e0e16;
+        display: block;
+        padding: 8px;
+        border-bottom: 1px solid #33334a;
+      }
+      .image-card .filename {
+        padding: 10px 8px;
+        font-size: 0.8rem;
+        text-align: center;
+        background: #1e1e2e;
+        color: #bdbdd0;
+        word-break: break-word;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .image-card .category-badge {
+        font-size: 0.7rem;
+        background: #3a3a5a;
+        color: #ccc;
+        padding: 2px 6px;
+        border-radius: 12px;
+        margin: 4px 8px 0;
+        text-align: center;
+      }
+      .loading,
+      .error-message,
+      .empty-message,
+      .no-results {
+        text-align: center;
+        padding: 3rem;
+        color: #aaa;
+        font-size: 1.2rem;
+      }
+      .footer-note {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: #242438;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        color: #9a9ab0;
+        border: 1px solid #3b3b58;
+      }
+      .footer-note code {
+        background: #13131f;
+        padding: 0.2rem 0.5rem;
+        border-radius: 6px;
+        color: #cba6ff;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #1e1e30;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #4a4a70;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #6a6a9a;
+      }
+
+      /* 高亮当前跳转的图片 */
+      .image-card.highlight {
+        border: 3px solid #ffaa00;
+        transform: scale(1.02);
+        box-shadow: 0 0 20px #ffaa00;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>🌙 Cultist Simulator 原始图片浏览 (动态 manifest)</h1>
-        <p>通过 jsDelivr 加载 <code>manifest.json</code> 获取真实文件列表 · 分支 <strong>vvanila_js</strong></p>
+      <h1>Cultist Simulator 原始图片浏览</h1>
     </header>
     <div class="container">
-        <!-- 左侧分类导航 (动态生成) -->
-        <div class="sidebar">
-            <h3>📁 分类</h3>
-            <ul class="category-list" id="category-list">
-                <li class="loading" style="background: none; border: none;">加载分类中...</li>
-            </ul>
-            <div style="padding: 1rem 1.2rem; margin-top: 1rem; border-top: 1px solid #35354a;">
-                <p style="font-size: 0.8rem; color: #78789b;">📌 基于 manifest.json 动态生成</p>
-                <p style="font-size: 0.8rem; color: #78789b; margin-top: 0.5rem;">🔍 子目录自动合并为分类名</p>
-            </div>
+      <!-- 左侧分类导航 (动态生成) -->
+      <div class="sidebar">
+        <h3>📁 分类</h3>
+        <ul class="category-list" id="category-list">
+          <li class="loading" style="background: none; border: none">
+            加载分类中...
+          </li>
+        </ul>
+        <div
+          style="
+            padding: 1rem 1.2rem;
+            margin-top: 1rem;
+            border-top: 1px solid #35354a;
+          "
+        >
+          <p style="font-size: 0.8rem; color: #78789b">
+            图片解包来自密教模拟器mod群，仅供学习交流，请勿用于其他商业需求
+          </p>
         </div>
-        <!-- 主内容区 -->
-        <div class="main" id="main-content">
-            <div class="category-title" id="current-category">--</div>
-            <div class="image-grid" id="image-grid">
+      </div>
+      <!-- 主内容区 -->
+      <div class="main" id="main-content">
+        <div class="global-search">
+          <input
+            type="text"
+            id="global-search-input"
+            placeholder="🌐 全局搜索所有分类的图片..."
+            autocomplete="off"
+          />
+          <button id="clear-global">✖ 清除</button>
+        </div>
+        <div class="global-stats" id="global-stats"></div>
+
+        <!-- 分类内搜索区域 (默认显示) -->
+        <div class="local-search-section" id="local-search-section">
+          <input
+            type="text"
+            id="local-search-input"
+            placeholder="🔎 在当前分类中搜索..."
+            autocomplete="off"
+          />
+          <button id="clear-local">✖ 清除</button>
+        </div>
+        <div class="result-stats" id="local-stats"></div>
+
+        <div class="category-title" id="current-category">--</div>
+
+
+        <div class="image-grid" id="local-image-grid">
                 <div class="loading">⏳ 请先选择一个分类</div>
             </div>
-            <div class="footer-note">
-                <strong>💡 数据来源</strong><br>
-                • Manifest 地址：<code id="manifest-url"></code><br>
-                • 图片基础路径：<code>https://cdn.jsdelivr.net/gh/qqf-dev/cultist-node-editor@vvanila_js/core/origin_resources/images/</code><br>
-                • 若分类名包含子目录（如 <code>elements/anim</code>），URL 会自动拼接正确路径。
-            </div>
-        </div>
+
+        <div
+          class="image-grid"
+          id="global-image-grid"
+          style="display: none"
+        ></div>
+      </div>
     </div>
 
-    <script>
+<script>
         (function() {
             // ---------- 配置 ----------
             const CDN_BASE = 'https://cdn.jsdelivr.net/gh/qqf-dev/cultist-node-editor@vvanila_js/';
-
             const MANIFEST_URL = CDN_BASE + 'core/images_manifest.json';
-            // 图片基础路径
             const IMAGES_BASE = CDN_BASE + 'core/origin_resources/images/';
-
-            // 显示 manifest 地址
-            document.getElementById('manifest-url').textContent = MANIFEST_URL;
 
             // DOM 元素
             const categoryListEl = document.getElementById('category-list');
             const currentCategoryEl = document.getElementById('current-category');
-            const imageGridEl = document.getElementById('image-grid');
+            const localGridEl = document.getElementById('local-image-grid');
+            const globalGridEl = document.getElementById('global-image-grid');
+            const localSearchInput = document.getElementById('local-search-input');
+            const clearLocalBtn = document.getElementById('clear-local');
+            const globalSearchInput = document.getElementById('global-search-input');
+            const clearGlobalBtn = document.getElementById('clear-global');
+            const localStatsEl = document.getElementById('local-stats');
+            const globalStatsEl = document.getElementById('global-stats');
 
-            // 存储 manifest 数据
-            let manifest = null;
-            // 当前选中的分类
-            let activeCategory = null;
+            // 状态变量
+            let manifest = null;               // 完整的 manifest 数据
+            let activeCategory = null;          // 当前选中的分类
+            let currentFiles = [];               // 当前分类的所有文件名
 
-            // 初始化：加载 manifest
+            // 加载 manifest
             async function loadManifest() {
                 try {
                     const res = await fetch(MANIFEST_URL);
                     if (!res.ok) throw new Error(`HTTP ${res.status}`);
                     manifest = await res.json();
 
-                    // 对 manifest 的键进行排序，并过滤掉可能存在的空键（根目录无图片的情况）
                     const categories = Object.keys(manifest).filter(key => manifest[key].length > 0).sort();
-
                     if (categories.length === 0) {
                         categoryListEl.innerHTML = '<li class="error-message">⚠️ manifest 中无任何图片分类</li>';
                         return;
                     }
 
-                    // 渲染侧边栏
                     renderSidebar(categories);
-
                     // 默认选中第一个分类
                     switchCategory(categories[0]);
 
                 } catch (err) {
                     console.error('加载 manifest 失败:', err);
                     categoryListEl.innerHTML = `<li class="error-message">❌ 加载 manifest 失败: ${err.message}</li>`;
-                    imageGridEl.innerHTML = `<div class="error-message">无法加载 manifest.json，请检查网络或路径。</div>`;
+                    localGridEl.innerHTML = `<div class="error-message">无法加载 manifest.json，请检查网络或路径。</div>`;
                 }
             }
 
@@ -264,7 +408,6 @@
                 });
                 categoryListEl.innerHTML = html;
 
-                // 添加点击事件
                 document.querySelectorAll('.category-item').forEach(el => {
                     el.addEventListener('click', () => {
                         const cat = el.dataset.category;
@@ -277,8 +420,9 @@
             function switchCategory(category) {
                 if (!manifest || category === activeCategory) return;
                 activeCategory = category;
+                currentFiles = manifest[category] || [];
 
-                // 更新激活样式
+                // 更新侧边栏激活样式
                 document.querySelectorAll('.category-item').forEach(el => {
                     if (el.dataset.category === category) {
                         el.classList.add('active');
@@ -290,45 +434,205 @@
                 // 更新标题
                 currentCategoryEl.textContent = category || '根目录';
 
-                // 加载该分类的图片
-                loadImagesForCategory(category);
+                // 清空本地搜索框
+                localSearchInput.value = '';
+                // 更新本地统计
+                updateLocalStats(currentFiles.length, currentFiles.length);
+                // 渲染本地图片（不过滤）
+                renderLocalImages('');
+
+                // 隐藏全局结果网格，显示本地网格
+                globalGridEl.style.display = 'none';
+                localGridEl.style.display = 'grid';
+                document.getElementById('local-search-section').style.display = 'flex';
+                globalStatsEl.textContent = ''; // 清空全局统计
             }
 
-            // 加载指定分类的图片
-            function loadImagesForCategory(category) {
-                const files = manifest[category] || [];
-                if (files.length === 0) {
-                    imageGridEl.innerHTML = '<div class="empty-message">📂 该分类下没有图片</div>';
+            // 渲染本地图片网格（根据搜索词过滤）
+            function renderLocalImages(searchTerm) {
+                if (!activeCategory) {
+                    localGridEl.innerHTML = '<div class="loading">⏳ 请先选择一个分类</div>';
                     return;
                 }
 
-                // 显示加载中
-                imageGridEl.innerHTML = '<div class="loading">🖼️ 加载图片中...</div>';
+                const term = searchTerm.trim().toLowerCase();
+                const filtered = term === '' ? currentFiles : currentFiles.filter(f => f.toLowerCase().includes(term));
 
-                // 使用 setTimeout 让 UI 先更新，避免阻塞
-                setTimeout(() => {
-                    let html = '';
-                    // 对文件名排序，使展示有序
-                    const sortedFiles = [...files].sort();
-                    sortedFiles.forEach(filename => {
-                        // 对文件名进行 URL 编码
-                        const encodedFilename = encodeURIComponent(filename);
-                        // 拼接图片 URL：注意 category 可能包含子目录（如 "elements/anim"）
-                        const imgUrl = `${IMAGES_BASE}${category}/${encodedFilename}`;
-                        html += `
-                            <div class="image-card">
-                                <img src="${imgUrl}" alt="${filename}" loading="lazy" onerror="this.style.opacity='0.3'; this.parentElement.style.opacity='0.6';">
-                                <div class="filename" title="${filename}">${filename}</div>
-                            </div>
-                        `;
+                updateLocalStats(filtered.length, currentFiles.length);
+
+                if (filtered.length === 0) {
+                    localGridEl.innerHTML = '<div class="no-results">🔍 没有找到匹配的图片</div>';
+                    return;
+                }
+
+                // 生成 HTML，但注意此时 localGridEl 可能被隐藏，但没关系
+                let html = '';
+                const sorted = [...filtered].sort();
+                sorted.forEach(filename => {
+                    const encoded = encodeURIComponent(filename);
+                    const imgUrl = `${IMAGES_BASE}${activeCategory}/${encoded}`;
+                    html += `
+                        <div class="image-card" data-category="${activeCategory}" data-filename="${filename}">
+                            <img src="${imgUrl}" alt="${filename}" loading="lazy" onerror="this.style.opacity='0.3'; this.parentElement.style.opacity='0.6';">
+                            <div class="filename" title="${filename}">${filename}</div>
+                        </div>
+                    `;
+                });
+                localGridEl.innerHTML = html;
+
+                // 为每个卡片添加点击事件，实现跳转（这里其实已经是本分类，但点击本身不需要跳转，但为了保持一致，可以留空或高亮自己）
+                // 实际上在本地点击不需要跳转，但我们可以移除点击事件或保留无操作
+            }
+
+            // 更新本地统计
+            function updateLocalStats(shown, total) {
+                const term = localSearchInput.value.trim();
+                if (term === '') {
+                    localStatsEl.textContent = `共 ${total} 张图片`;
+                } else {
+                    localStatsEl.textContent = `找到 ${shown} 张图片 (共 ${total} 张)`;
+                }
+            }
+
+            // 本地搜索事件
+            localSearchInput.addEventListener('input', (e) => {
+                renderLocalImages(e.target.value);
+            });
+
+            clearLocalBtn.addEventListener('click', () => {
+                localSearchInput.value = '';
+                renderLocalImages('');
+            });
+
+            // ---------- 全局搜索 ----------
+            let globalSearchTimeout = null;
+
+            globalSearchInput.addEventListener('input', (e) => {
+                const term = e.target.value.trim();
+                if (term === '') {
+                    // 清空全局搜索，返回本地视图
+                    globalGridEl.style.display = 'none';
+                    localGridEl.style.display = 'grid';
+                    document.getElementById('local-search-section').style.display = 'flex';
+                    globalStatsEl.textContent = '';
+                    return;
+                }
+
+                // 防抖
+                if (globalSearchTimeout) clearTimeout(globalSearchTimeout);
+                globalSearchTimeout = setTimeout(() => {
+                    performGlobalSearch(term);
+                }, 300);
+            });
+
+            clearGlobalBtn.addEventListener('click', () => {
+                globalSearchInput.value = '';
+                globalGridEl.style.display = 'none';
+                localGridEl.style.display = 'grid';
+                document.getElementById('local-search-section').style.display = 'flex';
+                globalStatsEl.textContent = '';
+            });
+
+            function performGlobalSearch(term) {
+                if (!manifest) return;
+
+                const lowerTerm = term.toLowerCase();
+                const results = [];
+
+                // 遍历所有分类
+                for (const [category, files] of Object.entries(manifest)) {
+                    files.forEach(filename => {
+                        if (filename.toLowerCase().includes(lowerTerm)) {
+                            results.push({ category, filename });
+                        }
                     });
-                    imageGridEl.innerHTML = html;
-                }, 20);
+                }
+
+                // 显示全局结果网格，隐藏本地网格
+                globalGridEl.style.display = 'grid';
+                localGridEl.style.display = 'none';
+                document.getElementById('local-search-section').style.display = 'none';
+
+                // 更新统计
+                globalStatsEl.textContent = `全局搜索 “${term}” 共找到 ${results.length} 张图片`;
+
+                if (results.length === 0) {
+                    globalGridEl.innerHTML = '<div class="no-results">🔍 没有找到匹配的图片</div>';
+                    return;
+                }
+
+                // 生成全局结果网格
+                let html = '';
+                results.forEach(({ category, filename }) => {
+                    const encoded = encodeURIComponent(filename);
+                    const imgUrl = `${IMAGES_BASE}${category}/${encoded}`;
+                    html += `
+                        <div class="image-card global-result" data-category="${category}" data-filename="${filename}">
+                            <img src="${imgUrl}" alt="${filename}" loading="lazy" onerror="this.style.opacity='0.3'; this.parentElement.style.opacity='0.6';">
+                            <div class="filename" title="${filename}">${filename}</div>
+                            <div class="category-badge">${category}</div>
+                        </div>
+                    `;
+                });
+                globalGridEl.innerHTML = html;
+
+                // 为每个全局结果添加点击事件：跳转到对应图片位置
+                document.querySelectorAll('.global-result').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        const category = card.dataset.category;
+                        const filename = card.dataset.filename;
+                        jumpToImage(category, filename);
+                    });
+                });
+            }
+
+            // 跳转到指定分类下的图片
+            function jumpToImage(category, filename) {
+                // 先切换到该分类
+                switchCategory(category);
+
+                // 等待本地网格渲染完成后，找到对应的图片卡片并滚动到它
+                // 由于 switchCategory 是异步渲染（setTimeout 20ms），我们需要等待
+                setTimeout(() => {
+                    const cards = document.querySelectorAll('#local-image-grid .image-card');
+                    let targetCard = null;
+                    for (let card of cards) {
+                        if (card.dataset.filename === filename) {
+                            targetCard = card;
+                            break;
+                        }
+                    }
+                    if (targetCard) {
+                        // 移除其他高亮
+                        cards.forEach(c => c.classList.remove('highlight'));
+                        targetCard.classList.add('highlight');
+                        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                        // 3秒后移除高亮
+                        setTimeout(() => targetCard.classList.remove('highlight'), 3000);
+                    } else {
+                        // 如果没找到（可能因为搜索过滤），尝试清空本地搜索再试
+                        localSearchInput.value = '';
+                        renderLocalImages('');
+                        // 再次尝试查找
+                        setTimeout(() => {
+                            const newCards = document.querySelectorAll('#local-image-grid .image-card');
+                            for (let card of newCards) {
+                                if (card.dataset.filename === filename) {
+                                    card.classList.add('highlight');
+                                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    setTimeout(() => card.classList.remove('highlight'), 3000);
+                                    break;
+                                }
+                            }
+                        }, 100);
+                    }
+                }, 100); // 等待 switchCategory 完成渲染
             }
 
             // 启动
             loadManifest();
         })();
     </script>
-</body>
+  </body>
 </html>
